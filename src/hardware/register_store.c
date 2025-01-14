@@ -1,1 +1,4 @@
-uint_64 reg[R_COUNT];
+#include "registers.c"
+#include "stdint.h"
+
+uint16_t reg[R_COUNT];

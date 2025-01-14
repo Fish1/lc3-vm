@@ -1,8 +1,8 @@
 enum {
 	OP_BR = 0,	/* branch */
-	OP_ADD,			/* add */
 	OP_LD,			/* load */
 	OP_ST,			/* store */
+	OP_ADD,			/* add */
 	OP_JSR,			/* jump register */
 	OP_AND,			/* bitwise and */
 	OP_LDR,			/* load register */
