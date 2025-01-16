@@ -1,3 +1,5 @@
+#pragma once
+
 #include "stdint.h"
 
 #include "../helpers/sign_extend.c"

@@ -1,13 +1,12 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-#include "./hardware/memory.c"
 #include "./hardware/opcodes.c"
 
-#include "./helpers/mem_read.c"
 #include "./helpers/read_image.c"
-#include "./helpers/sign_extend.c"
-#include "./helpers/update_flags.c"
+
+#include "./operations/add.c"
+#include "./operations/ldi.c"
 
 int main(int argc, const char *argv[]) {
 
@@ -43,13 +42,12 @@ int main(int argc, const char *argv[]) {
 
     switch (op) {
     case OP_ADD:
+      add(instr);
       break;
-    case OP_AND:
-      break;
-    case OP_NOT:
-      break;
-    default:
-      // bad opcode
+    case OP_LDI:
+      ldi(instr);
+    default: // bad op code
+      abort();
       break;
     }
   }

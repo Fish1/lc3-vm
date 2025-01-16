@@ -1,3 +1,5 @@
+#pragma once
+
 #include "stdint.h"
 
 #include "../hardware/condition_flags.c"

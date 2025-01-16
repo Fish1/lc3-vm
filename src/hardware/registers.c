@@ -1,3 +1,5 @@
+#pragma once
+
 enum {
   R_R0 = 0,
   R_R1,

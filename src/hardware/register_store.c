@@ -1,3 +1,5 @@
+#pragma once
+
 #include "registers.c"
 #include "stdint.h"
 
