@@ -6,7 +6,9 @@
 #include "./helpers/read_image.c"
 
 #include "./operations/add.c"
+#include "./operations/ld.c"
 #include "./operations/ldi.c"
+#include "./operations/st.c"
 
 int main(int argc, const char *argv[]) {
 
@@ -46,6 +48,13 @@ int main(int argc, const char *argv[]) {
       break;
     case OP_LDI:
       ldi(instr);
+      break;
+    case OP_LD:
+      ld(instr);
+      break;
+    case OP_ST:
+      st(instr);
+      break;
     default: // bad op code
       abort();
       break;
