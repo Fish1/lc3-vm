@@ -8,9 +8,20 @@
 #include "./helpers/read_image.c"
 
 #include "./operations/add.c"
+#include "./operations/and.c"
+#include "./operations/br.c"
+#include "./operations/jmp.c"
+#include "./operations/jsr.c"
 #include "./operations/ld.c"
 #include "./operations/ldi.c"
+#include "./operations/ldr.c"
+#include "./operations/lea.c"
+#include "./operations/not.c"
+#include "./operations/res.c"
+#include "./operations/rti.c"
 #include "./operations/st.c"
+#include "./operations/sti.c"
+#include "./operations/str.c"
 #include "./operations/trap.c"
 
 #include "./platform/linux/disable_input_buffering.c"
@@ -57,11 +68,11 @@ int main(int argc, const char *argv[]) {
     uint16_t op = instr >> 12;
 
     switch (op) {
+    case OP_BR:
+      br(instr);
+      break;
     case OP_ADD:
       add(instr);
-      break;
-    case OP_LDI:
-      ldi(instr);
       break;
     case OP_LD:
       ld(instr);
@@ -69,11 +80,43 @@ int main(int argc, const char *argv[]) {
     case OP_ST:
       st(instr);
       break;
+    case OP_JSR:
+      jsr(instr);
+      break;
+    case OP_AND:
+      and(instr);
+      break;
+    case OP_LDR:
+      ldr(instr);
+      break;
+    case OP_STR:
+      str(instr);
+      break;
+    case OP_RTI:
+      rti(instr);
+      break;
+    case OP_NOT:
+      not(instr);
+      break;
+    case OP_LDI:
+      ldi(instr);
+      break;
+    case OP_STI:
+      sti(instr);
+      break;
+    case OP_JMP:
+      jmp(instr);
+      break;
+    case OP_RES:
+      res(instr);
+      break;
+    case OP_LEA:
+      lea(instr);
+      break;
     case OP_TRAP:
       trap(instr);
       break;
     default: // bad op code
-      printf("BAD OPCODE");
       abort();
       break;
     }
