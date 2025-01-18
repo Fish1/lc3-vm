@@ -1,6 +1,8 @@
+#include "signal.h"
 #include "stdio.h"
 #include "stdlib.h"
 
+#include "./hardware/controller.c"
 #include "./hardware/opcodes.c"
 
 #include "./helpers/read_image.c"
@@ -9,8 +11,21 @@
 #include "./operations/ld.c"
 #include "./operations/ldi.c"
 #include "./operations/st.c"
+#include "./operations/trap.c"
+
+#include "./platform/linux/disable_input_buffering.c"
+#include "./platform/linux/restore_input_buffering.c"
+
+void handle_interrupt(int signal) {
+  restore_input_buffering();
+  printf("\n");
+  exit(-2);
+}
 
 int main(int argc, const char *argv[]) {
+
+  signal(SIGINT, handle_interrupt);
+  disable_input_buffering();
 
   // check if there are at least 2 arguments
   if (argc < 2) {
@@ -36,7 +51,6 @@ int main(int argc, const char *argv[]) {
   enum { PC_START = 0x3000 };
   reg[R_PC] = PC_START;
 
-  int running = 1;
   while (running) {
     // fetch instruction
     uint16_t instr = mem_read(reg[R_PC]++);
@@ -55,11 +69,16 @@ int main(int argc, const char *argv[]) {
     case OP_ST:
       st(instr);
       break;
+    case OP_TRAP:
+      trap(instr);
+      break;
     default: // bad op code
+      printf("BAD OPCODE");
       abort();
       break;
     }
   }
 
   // shutdown
+  restore_input_buffering();
 }
